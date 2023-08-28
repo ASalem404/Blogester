@@ -14,8 +14,20 @@ module.exports = (app) => {
   });
 
   app.get("/api/blogs", requireLogin, async (req, res) => {
-    const blogs = await Blog.find({ _user: req.user.id });
+    const redis = require("redis");
+    const util = require("util");
+    const redisUrl = "redis://localhost:6379";
+    const client = redis.createClient(redisUrl);
+    client.get = util.promisify(client.get);
 
+    const cashedBlogs = await client.get(req.user.id);
+    if (cashedBlogs) {
+      console.log("From Cashe");
+      return res.send(JSON.parse(cashedBlogs));
+    }
+    console.log("From MongoDB");
+    const blogs = await Blog.find({ _user: req.user.id });
+    client.set(req.user.id, JSON.stringify(blogs));
     res.send(blogs);
   });
 
