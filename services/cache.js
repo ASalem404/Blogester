@@ -12,11 +12,23 @@ client.get = util.promisify(client.get);
 // method in case the data is not in the cache
 const exec = mongoose.Query.prototype.exec;
 
+// Using the cache method we make caching queries is an optional process.
+mongoose.Query.prototype.cache = function () {
+  this.isCached = true;
+
+  // returning this to make the method chainable
+  return this;
+};
+
 // Override the exec method to access the query before executing
 // and then check if the cache contain a value with this query
 // so we don't need to go through the database again.
 
 mongoose.Query.prototype.exec = async function () {
+  // Check first if u want to use cache over this query or not,
+  // if not call the exec method directly
+  if (!this.isCached) return exec.apply(this, arguments);
+
   const key = JSON.stringify(
     Object.assign({}, this.getQuery(), {
       collection: this.mongooseCollection.name,

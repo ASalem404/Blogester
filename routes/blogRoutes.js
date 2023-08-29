@@ -16,8 +16,9 @@ module.exports = (app) => {
   app.get("/api/blogs", requireLogin, async (req, res) => {
     // in background we override the exec method which used by
     // the find method below, and assign cache jobs to the exec method
+    // chain the cache method to force the query to be cached
 
-    const blogs = await Blog.find({ _user: req.user.id });
+    const blogs = await Blog.find({ _user: req.user.id }).cache();
     res.send(blogs);
   });
 
