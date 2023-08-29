@@ -18,7 +18,9 @@ module.exports = (app) => {
     // the find method below, and assign cache jobs to the exec method
     // chain the cache method to force the query to be cached
 
-    const blogs = await Blog.find({ _user: req.user.id }).cache();
+    const blogs = await Blog.find({ _user: req.user.id }).cache({
+      key: req.user.id,
+    });
     res.send(blogs);
   });
 
