@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const requireLogin = require("../middlewares/requireLogin");
-
+const cach = require("../services/cache");
 const Blog = mongoose.model("Blog");
 
 module.exports = (app) => {
@@ -14,20 +14,10 @@ module.exports = (app) => {
   });
 
   app.get("/api/blogs", requireLogin, async (req, res) => {
-    const redis = require("redis");
-    const util = require("util");
-    const redisUrl = "redis://localhost:6379";
-    const client = redis.createClient(redisUrl);
-    client.get = util.promisify(client.get);
+    // in background we override the exec method which used by
+    // the find method below, and assign cache jobs to the exec method
 
-    const cashedBlogs = await client.get(req.user.id);
-    if (cashedBlogs) {
-      console.log("From Cashe");
-      return res.send(JSON.parse(cashedBlogs));
-    }
-    console.log("From MongoDB");
     const blogs = await Blog.find({ _user: req.user.id });
-    client.set(req.user.id, JSON.stringify(blogs));
     res.send(blogs);
   });
 
