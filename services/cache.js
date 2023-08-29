@@ -51,3 +51,9 @@ mongoose.Query.prototype.exec = async function () {
   client.hset(this.hashKey, key, JSON.stringify(value), "EX", 30);
   return value;
 };
+
+module.exports = {
+  clearCache(key) {
+    client.del(JSON.stringify(key));
+  },
+};
