@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const redis = require("redis");
 const util = require("util");
-
 const redisUrl = "redis://localhost:6379";
 const client = redis.createClient(redisUrl);
 
