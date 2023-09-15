@@ -1,14 +1,15 @@
-const puppeteer = require("puppeteer");
 const sessionFactory = require("../tests/factories/sessionFactory");
-let browser, page;
+const userFactory = require("./factories/userFactory");
+const Page = require("./factories/helpers/Page");
+
+let page;
 beforeEach(async () => {
-  browser = await puppeteer.launch({ headless: false });
-  page = await browser.newPage();
+  page = await Page.build();
   await page.goto("localhost:3000");
 });
 
 afterEach(async () => {
-  await browser.close();
+  await page.close();
 });
 
 test("The Header has the correct text", async () => {
@@ -27,9 +28,9 @@ test("Clicking login", async () => {
   expect(url).toMatch(/accounts\.google\.com/);
 });
 
-test.only("logging in, and showing logout button", async () => {
-  const id = "64eb74006e673c3a3c827ffa";
-  const { session, sig } = sessionFactory(id);
+test("logging in, and showing logout button", async () => {
+  const user = await userFactory();
+  const { session, sig } = sessionFactory(user);
   await page.setCookie({ name: "session", value: session });
   await page.setCookie({ name: "session.sig", value: sig });
   await page.goto("localhost:3000");
