@@ -15,7 +15,7 @@
     "build": "NPM_CONFIG_PRODUCTION=false npm install --legacy-peer-deps --prefix client && npm run build --prefix client",
     "heroku-postbuild": "npm run build"
   },
-  "author": "",
+  "author": "Ahmed Salem",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "2.188.0",
