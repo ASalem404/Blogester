@@ -32,4 +32,25 @@ describe("when logged in", async () => {
       expect(contentError).toEqual("You must provide a value");
     });
   });
+
+  describe("When inserting a valid input", async () => {
+    beforeEach(async () => {
+      await page.type(".title input", "Test Title");
+      await page.type(".content input", "Test Content");
+      await page.click("form button");
+    });
+    test("submitting takes user to confirmation screen", async () => {
+      const confirmText = await page.getContent("form h5");
+      expect(confirmText).toEqual("Please confirm your entries");
+    });
+
+    test("submitting then saving adds blog to index page", async () => {
+      await page.click("button.green");
+      await page.waitFor(".card");
+      const cardTitle = await page.getContent(".card-title");
+      const cardContent = await page.getContent("p");
+      expect(cardTitle).toEqual("Test Title");
+      expect(cardContent).toEqual("Test Content");
+    });
+  });
 });
