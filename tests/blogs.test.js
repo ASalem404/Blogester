@@ -54,3 +54,30 @@ describe("when logged in", async () => {
     });
   });
 });
+
+describe("User is not logged in", () => {
+  test("User cannot creating new blog", async () => {
+    const result = await page.evaluate(async () => {
+      return fetch("/api/blogs", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: "Test Title",
+          content: "Test content",
+        }),
+      }).then((result) => result.json());
+    });
+    expect(result).toEqual({ error: "You must log in!" });
+  });
+  test("User cannot viewing blogs", async () => {
+    const result = await page.evaluate(async () => {
+      return fetch("/api/blogs", {
+        method: "GET",
+        credentials: "same-origin",
+        headers: { "Content-Type": "application/json" },
+      }).then((res) => res.json());
+    });
+    expect(result).toEqual({ error: "You must log in!" });
+  });
+});
