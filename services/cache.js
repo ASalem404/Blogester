@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const redis = require("redis");
+const keys = require("../config/keys");
 const util = require("util");
-const redisUrl = "redis://localhost:6379";
 const client = redis.createClient(redisUrl);
 
 // Promisify the redis hget method to make it able to await
