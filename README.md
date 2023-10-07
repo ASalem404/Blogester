@@ -5,6 +5,15 @@ like caching with Redis, clustering for performance optimization, and image uplo
 This repository serves as a learning resource for me and developers who are interested in exploring these advanced Node.js topics.
 Please note that this project is a work in progress.
 
+## Contents
+
+This project includes some of advanced Node.js concepts such as:
+
+- Redis
+- Image upload Using Amazon S3
+- Authentication and authorization
+- Routing
+
 ### Setup
 
 - Run `npm install` in the root of the project to install server dependencies
