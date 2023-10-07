@@ -2,11 +2,10 @@ const mongoose = require("mongoose");
 const redis = require("redis");
 const keys = require("../config/keys");
 const util = require("util");
-const client = redis.createClient(redisUrl);
+const client = redis.createClient(keys.redisUrl);
 
 // Promisify the redis hget method to make it able to await
 client.hget = util.promisify(client.hget);
-
 // Keeping the default implementation of the exec
 // method in case the data is not in the cache
 const exec = mongoose.Query.prototype.exec;
