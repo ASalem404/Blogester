@@ -24,4 +24,4 @@ This project includes some of advanced Node.js concepts such as:
 ### Notes
 
 - Make sure to attach your own config file to the project
-- Make sure to configure the AWS S3 correctly to avoid CORS problem and permissions issues
+- Ensure correct configuration of AWS S3 to prevent CORS problems and permissions issues.
