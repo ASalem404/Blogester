@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchBlog } from "../../actions";
-const keys = require("../../../../config/keys");
 
 class BlogShow extends Component {
   componentDidMount() {
@@ -10,7 +9,9 @@ class BlogShow extends Component {
 
   renderImage() {
     if (this.props.blog.imageUrl) {
-      return <img src={`${keys.BucketUrl}/${this.props.blog.imageUrl}`}></img>;
+      return (
+        <img src={`${process.env.BucketUrl}/${this.props.blog.imageUrl}`}></img>
+      );
     }
   }
 
