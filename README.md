@@ -9,7 +9,7 @@ Please note that this project is a work in progress.
 
 This project includes some of advanced Node.js concepts such as:
 
-- Redis
+- Caching with Redis
 - Image upload Using Amazon S3
 - Authentication and authorization
 - Routing
