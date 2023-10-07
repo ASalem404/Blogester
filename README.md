@@ -11,3 +11,8 @@ Please note that this project is a work in progress.
 - Change into the client directory and run `npm install --legacy-peer-deps`
 - Change back into the root of the project and run `npm run dev` to start the server
 - Access the application at `localhost:3000` in your browser
+
+### Notes
+
+- Make sure to attach your own config file to the project
+- Make sure to configure the AWS S3 correctly to avoid CORS problem and permissions issues
