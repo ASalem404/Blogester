@@ -52,7 +52,6 @@ class BlogFormReview extends Component {
   onFileChange(event) {
     // console.log(this);
     this.state = { file: event.target.files };
-    console.log(event.target.files);
   }
 
   render() {
