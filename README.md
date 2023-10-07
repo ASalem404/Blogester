@@ -1,4 +1,4 @@
-# Blogster Node.js Project (Work in Progress)
+# Blogster Node.js Project
 
 Blogster is a Node.js-based blogging platform currently in development, focusing on advanced Node.js concepts
 like caching with Redis, clustering for performance optimization, and image upload using Amazon S3.
